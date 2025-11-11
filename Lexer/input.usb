@@ -10,7 +10,7 @@ comment
 */
 kwerdas StringIto[30] = "ITO AY STRING";
 
-	titik titikIto = ‘a’; 'a'
+	titik titikIto = ‘a’;
 
 	tanim (“%lf, %d”, y, z);
 

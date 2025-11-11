@@ -23,6 +23,8 @@ int getTokenValueFromName(const char *tokenName) {
     if (strcmp(tokenName, "D_RBRACE") == 0) return D_RBRACE;
     if (strcmp(tokenName, "D_SEMICOLON") == 0) return D_SEMICOLON;
     if (strcmp(tokenName, "D_COMMA") == 0) return D_COMMA;
+    if (strcmp(tokenName, "D_LBRACKET") == 0) return D_LBRACKET;
+    if (strcmp(tokenName, "D_RBRACKET") == 0) return D_RBRACKET;
     
     // Operators
     if (strcmp(tokenName, "O_ASSIGN") == 0) return O_ASSIGN;
@@ -38,6 +40,8 @@ int getTokenValueFromName(const char *tokenName) {
     if (strcmp(tokenName, "O_LESS_EQ") == 0) return O_LESS_EQ;
     
     // Keywords
+    if (strcmp(tokenName, "K_ANI") == 0) return K_ANI;
+    if (strcmp(tokenName, "K_TANIM") == 0) return K_TANIM;
     if (strcmp(tokenName, "K_KUNG") == 0) return K_KUNG;
     if (strcmp(tokenName, "K_KUNDI") == 0) return K_KUNDI;
     if (strcmp(tokenName, "K_KUNDIMAN") == 0) return K_KUNDIMAN;
@@ -89,12 +93,6 @@ void loadTokensFromFile(const char *filename) {
                 tokens[tokenCount].tokenValue = getTokenValueFromName(tokenName);
             }
             
-            // DEBUG: Print first 10 tokens
-            if (tokenCount < 10) {
-                printf("Token %d: '%s' | '%s' -> value: %d\n", 
-                       tokenCount, lexeme, tokenName, tokens[tokenCount].tokenValue);
-            }
-            
             tokenCount++;
         }
     }
@@ -137,14 +135,19 @@ void parseRelOp() {
 }
 
 void parseFactor() {
-    if (check(L_IDENTIFIER) || check(L_BILANG_LITERAL))
+
+    printf("parseFactor() checking token: '%s' with value %d\n", 
+           tokens[currentToken].lexeme, 
+           tokens[currentToken].tokenValue);
+
+    if (check(L_IDENTIFIER) || check(L_BILANG_LITERAL) || check(L_KWERDAS_LITERAL) || check(L_BULYAN_LITERAL) || check(L_LUTANG_LITERAL))
         currentToken++;
     else if (check(D_LPAREN)) {
         match(D_LPAREN);
         parseExpression();
         match(D_RPAREN);
     } else {
-        printf("Syntax Error: Unexpected factor '%s'\n", tokens[currentToken].lexeme);
+        printf("Syntax Error at line '%d': Unexpected factor '%s'\n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme);
         exit(1);
     }
 }
@@ -185,6 +188,8 @@ void parseAssignmentStatement() {
     parseExpression();
     match(D_SEMICOLON);
 }
+
+
 
 void parseDeclarationStatement() {
     // Match data type
@@ -236,6 +241,7 @@ void parseDeclarationStatement() {
     
     match(D_SEMICOLON);
 }
+
 void parseLoopStatement() {
     if (check(K_PARA)) {
         match(K_PARA);
@@ -356,5 +362,5 @@ void parseProgram() {
     if (currentToken < tokenCount)
         printf("Warning: Extra tokens after program end\n");
     else
-        printf("✅ Syntax Analysis Complete.\n");
+        printf("Syntax Analysis Complete.\n");
 }
