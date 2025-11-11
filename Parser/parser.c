@@ -5,59 +5,18 @@ Token tokens[1000];
 int tokenCount = 0;
 int currentToken = 0;
 
-/* ------------------ Helper: Map Token Names to Values ------------------ */
-
-int getTokenValueFromName(const char *tokenName) {
-    // Reserved words
-    if (strcmp(tokenName, "R_WALA") == 0) return R_WALA;
-    if (strcmp(tokenName, "R_UGAT") == 0) return R_UGAT;
-    if (strcmp(tokenName, "R_BILANG") == 0) return R_BILANG;
-    if (strcmp(tokenName, "R_LUTANG") == 0) return R_LUTANG;
-    if (strcmp(tokenName, "R_BULYAN") == 0) return R_BULYAN;
-    if (strcmp(tokenName, "R_KWERDAS") == 0) return R_KWERDAS;
-    
-    // Delimiters
-    if (strcmp(tokenName, "D_LPAREN") == 0) return D_LPAREN;
-    if (strcmp(tokenName, "D_RPAREN") == 0) return D_RPAREN;
-    if (strcmp(tokenName, "D_LBRACE") == 0) return D_LBRACE;
-    if (strcmp(tokenName, "D_RBRACE") == 0) return D_RBRACE;
-    if (strcmp(tokenName, "D_SEMICOLON") == 0) return D_SEMICOLON;
-    if (strcmp(tokenName, "D_COMMA") == 0) return D_COMMA;
-    if (strcmp(tokenName, "D_LBRACKET") == 0) return D_LBRACKET;
-    if (strcmp(tokenName, "D_RBRACKET") == 0) return D_RBRACKET;
-    
-    // Operators
-    if (strcmp(tokenName, "O_ASSIGN") == 0) return O_ASSIGN;
-    if (strcmp(tokenName, "O_PLUS") == 0) return O_PLUS;
-    if (strcmp(tokenName, "O_MINUS") == 0) return O_MINUS;
-    if (strcmp(tokenName, "O_MULTIPLY") == 0) return O_MULTIPLY;
-    if (strcmp(tokenName, "O_DIVIDE") == 0) return O_DIVIDE;
-    if (strcmp(tokenName, "O_EQUAL") == 0) return O_EQUAL;
-    if (strcmp(tokenName, "O_NOT_EQUAL") == 0) return O_NOT_EQUAL;
-    if (strcmp(tokenName, "O_GREATER") == 0) return O_GREATER;
-    if (strcmp(tokenName, "O_LESS") == 0) return O_LESS;
-    if (strcmp(tokenName, "O_GREATER_EQ") == 0) return O_GREATER_EQ;
-    if (strcmp(tokenName, "O_LESS_EQ") == 0) return O_LESS_EQ;
-    
-    // Keywords
-    if (strcmp(tokenName, "K_ANI") == 0) return K_ANI;
-    if (strcmp(tokenName, "K_TANIM") == 0) return K_TANIM;
-    if (strcmp(tokenName, "K_KUNG") == 0) return K_KUNG;
-    if (strcmp(tokenName, "K_KUNDI") == 0) return K_KUNDI;
-    if (strcmp(tokenName, "K_KUNDIMAN") == 0) return K_KUNDIMAN;
-    if (strcmp(tokenName, "K_PARA") == 0) return K_PARA;
-    if (strcmp(tokenName, "K_HABANG") == 0) return K_HABANG;
-    if (strcmp(tokenName, "K_GAWIN") == 0) return K_GAWIN;
-    
-    // Literals/Identifiers
-    if (strcmp(tokenName, "L_IDENTIFIER") == 0) return L_IDENTIFIER;
-    if (strcmp(tokenName, "L_BILANG_LITERAL") == 0) return L_BILANG_LITERAL;
-    if (strcmp(tokenName, "L_LUTANG_LITERAL") == 0) return L_LUTANG_LITERAL;
-    if (strcmp(tokenName, "L_KWERDAS_LITERAL") == 0) return L_KWERDAS_LITERAL;
-    if (strcmp(tokenName, "L_BULYAN_LITERAL") == 0) return L_BULYAN_LITERAL;
-    
-    return 0;  // Unknown token
+// error message
+void syntaxError(const char* message, int lineNumber, const char* lexeme) {
+    if (lineNumber > 0 && lexeme && lexeme[0] != '\0')
+        printf("Syntax Error at line %d: %s near '%s'\n", lineNumber, message, lexeme);
+    else if (lineNumber > 0)
+        printf("Syntax Error at line %d: %s\n", lineNumber, message);
+    else
+        printf("Syntax Error: %s near '%s'\n", message, lexeme ? lexeme : "");
 }
+
+
+
 
 /* ------------------ Token Loading ------------------ */
 
@@ -161,8 +120,7 @@ void loadTokensFromFile(const char *filename) {
         tokens[tokenCount].tokenValue = O_NOT;
 
     else {
-        printf("Unknown token: %s (%s)\n", lexeme, tokenName);
-        exit(1);
+        syntaxError("Unknown token", 0, lexeme); // customize message
     }
 
     tokens[tokenCount].category = CAT_UNKNOWN;
@@ -186,9 +144,6 @@ Token getCurrentToken() {
 
 int check(int expected) {
     int result = tokens[currentToken].tokenValue == expected;
-    printf("check(%d) against token '%s' with value %d → %s\n",
-           expected, tokens[currentToken].lexeme, tokens[currentToken].tokenValue,
-           result ? "true" : "false");
     return result;
 }
 
@@ -197,11 +152,7 @@ void match(int expected) {
     if (tokens[currentToken].tokenValue == expected) {
         currentToken++;
     } else {
-        printf("Syntax Error at line %d: Expected token %d but found '%s'\n",
-               tokens[currentToken].lineNumber,
-               expected,
-               tokens[currentToken].lexeme);
-        exit(1);
+        syntaxError("Expected token mismatch", tokens[currentToken].lineNumber, tokens[currentToken].lexeme);
     }
 }
 
@@ -212,17 +163,12 @@ void parseRelOp() {
         check(O_GREATER_EQ) || check(O_LESS_EQ))
         currentToken++;
     else {
-        printf("Syntax Error: Expected relational operator at '%s'\n", tokens[currentToken].lexeme);
-        exit(1);
+        syntaxError("Expected relational operator", tokens[currentToken].lineNumber, tokens[currentToken].lexeme);
     }
 }
 
 
 void parseFactor() {
-
-    printf("parseFactor() checking token: '%s' with value %d\n", 
-           tokens[currentToken].lexeme, 
-           tokens[currentToken].tokenValue);
 
     if (check(L_IDENTIFIER) || check(L_BILANG_LITERAL) || check(L_KWERDAS_LITERAL) || check(L_BULYAN_LITERAL) || check(L_LUTANG_LITERAL))
         currentToken++;
@@ -231,8 +177,7 @@ void parseFactor() {
         parseExpression();
         match(D_RPAREN);
     } else {
-        printf("Syntax Error at line '%d': Unexpected factor '%s'\n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme);
-        exit(1);
+        syntaxError("Unexpected factor", tokens[currentToken].lineNumber, tokens[currentToken].lexeme);
     }
 }
 
@@ -256,10 +201,8 @@ void parseExpressionTail() {
 }
 
 void parseExpression() {
-    printf("parseExpression() starting at token '%s'\n", tokens[currentToken].lexeme);
     parseTerm();
     parseExpressionTail();
-    printf("parseExpression() ending at token '%s'\n", tokens[currentToken].lexeme);
 }
 
 
@@ -284,9 +227,7 @@ void parseAssignmentStatement() {
         parseExpression();
     } 
     else {
-        printf("Syntax Error at line %d: Expected expression after '='\n",
-               tokens[currentToken].lineNumber);
-        exit(1);
+        syntaxError("Expected expression after '='", tokens[currentToken].lineNumber, tokens[currentToken].lexeme);
     }
 
     // Match semicolon
@@ -301,8 +242,7 @@ void parseDeclarationStatement() {
     if (check(R_BILANG) || check(R_LUTANG) || check(R_BULYAN) || check(R_KWERDAS)) {
         currentToken++;
     } else {
-        printf("Syntax Error at line %d: Expected data type\n", tokens[currentToken].lineNumber);
-        exit(1);
+        syntaxError("Expected data type", tokens[currentToken].lineNumber, tokens[currentToken].lexeme);
     }
 
     // Match variable name
@@ -314,8 +254,7 @@ void parseDeclarationStatement() {
         if (check(L_BILANG_LITERAL)) {
             match(L_BILANG_LITERAL);  // Array size
         } else {
-            printf("Syntax Error at line %d: Expected array size\n", tokens[currentToken].lineNumber);
-            exit(1);
+            syntaxError("Expected array size\n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme); // customize message
         }
         match(D_RBRACKET);
     }
@@ -330,9 +269,7 @@ void parseDeclarationStatement() {
         {
             parseExpression();
         } else {
-            printf("Syntax Error at line %d: Expected expression after '='\n",
-                   tokens[currentToken].lineNumber);
-            exit(1);
+            syntaxError("Expected expression after '='\n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme); // customize message
         }
     }
 
@@ -358,9 +295,7 @@ void parseDeclarationStatement() {
             {
                 parseExpression();
             } else {
-                printf("Syntax Error at line %d: Expected expression after '='\n",
-                       tokens[currentToken].lineNumber);
-                exit(1);
+                syntaxError("Expected expression after '='\n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme); // customize message
             }
         }
     }
@@ -452,10 +387,7 @@ void parseStatement() {
     else if (check(K_PARA) || check(K_HABANG) || check(K_GAWIN))
         parseLoopStatement();
     else {
-        printf("Syntax Error at line %d: Unexpected '%s'\n",
-               tokens[currentToken].lineNumber,
-               tokens[currentToken].lexeme);
-        exit(1);
+        syntaxError("Unexpected \n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme); // customize message
     }
 }
 
