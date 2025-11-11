@@ -22,4 +22,8 @@ void hashhashInsert(const char *key, TokenCategory category, int token_value);
 HashEntry* hashLookUp(const char *key);
 void initialize_table(void);
 
+
+// new function for parser to use
+int hashLookup(const char *lexeme, int *category, int *value);
+
 #endif

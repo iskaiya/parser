@@ -15,7 +15,7 @@ typedef enum {
 
 //Tokens for keywords category:
 typedef enum {
-    K_ANI,
+    K_ANI = 0,
     K_TANIM,
     K_PARA,
     K_HABANG,
@@ -29,11 +29,8 @@ typedef enum {
     K_STATIK,
     K_PRIBADO,
     K_PROTEKTADO,
-    K_PUBLIKO
-} KeywordToken;
+    K_PUBLIKO,
 
-//Tokens for reserved words category:
-typedef enum {
     R_TAMA,
     R_MALI,
     R_UGAT,    
@@ -48,11 +45,8 @@ typedef enum {
     R_PI,            
     R_E_NUM,                
     R_SAMPLE_CONST_STRING,
-    R_Kiss
-} ReservedToken;
+    R_Kiss,
 
-//Tokens for noisewords category:
-typedef enum {
     N_NG,
     N_AY,
     N_BUNGA,
@@ -60,11 +54,8 @@ typedef enum {
     N_SA,
     N_ANG,
     N_MULA,
-    N_ITAKDA
-} NoiseWordToken;
+    N_ITAKDA,
 
-//Tokens for operators category:
-typedef enum {
     O_PLUS,        // +
     O_MINUS,       // -
     O_MULTIPLY,    // *
@@ -80,11 +71,8 @@ typedef enum {
     O_GREATER_EQ,  // >=
     O_AND,         // &&
     O_OR,          // ||
-    O_NOT          // !
-} OperatorToken;
+    O_NOT,
 
-//Tokens for delimiters category:
-typedef enum {
     D_LPAREN,      // (
     D_RPAREN,      // )
     D_LBRACE,      // {
@@ -96,33 +84,34 @@ typedef enum {
     D_COLON,       // :
     D_DOT,         // .
     D_QUOTE,       // "
-    D_SQUOTE       // '
-} DelimiterToken;
+    D_SQUOTE,
 
-//Tokens for literals category:
-typedef enum {
     L_IDENTIFIER,
     L_BILANG_LITERAL,
     L_LUTANG_LITERAL,
     L_KWERDAS_LITERAL,
     L_TITIK_LITERAL,
-    L_BULYAN_LITERAL  // (Tama, Mali)
-} LiteralToken;
+    L_BULYAN_LITERAL,  // (Tama, Mali)
 
-
-//Tokens for comments category:
-typedef enum {
     C_SINGLE_LINE,  // //
     C_MULTI_LINE    // /* */
-} CommentToken;
+} TokenType;
+
+// Keep old typedefs for backward compatibility if needed
+typedef TokenType KeywordToken;
+typedef TokenType ReservedToken;
+typedef TokenType NoiseWordToken;
+typedef TokenType OperatorToken;
+typedef TokenType DelimiterToken;
+typedef TokenType LiteralToken;
+typedef TokenType CommentToken;
 
 //General structure for a Token
 typedef struct {
     TokenCategory category;
-    int tokenValue;          // Holds actual enum value from KeywordToken, OperatorToken, etc.
-    char* lexeme;         // The actual string from the source code
-    int lineNumber;    // Line number in source code
+    int tokenValue;
+    char* lexeme;
+    int lineNumber;
 } Token;
 
-
-#endif 
+#endif

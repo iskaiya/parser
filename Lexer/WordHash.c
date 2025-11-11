@@ -101,3 +101,15 @@ void initialize_table(void) {
     hashInsert("sampleConstString", CAT_RESERVED, R_SAMPLE_CONST_STRING);
     
 }
+
+// Added for parser
+int hashLookup(const char *lexeme, int *category, int *value) {
+    HashEntry *entry = hashLookUp(lexeme);
+    
+    if (entry != NULL) {
+        *category = entry->category;
+        *value = entry->tokenValue;
+        return 1;  // Found
+    }
+    return 0;  // Not found
+}
