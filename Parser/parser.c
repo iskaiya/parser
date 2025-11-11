@@ -62,43 +62,121 @@ int getTokenValueFromName(const char *tokenName) {
 /* ------------------ Token Loading ------------------ */
 
 void loadTokensFromFile(const char *filename) {
-    initialize_table();
-    
+    initialize_table();  // fill your hash table with keywords, operators, literals, etc.
+
     FILE *file = fopen(filename, "r");
     if (!file) {
         printf("Cannot open %s\n", filename);
         exit(1);
     }
-    
+
     char line[256];
     while (fgets(line, sizeof(line), file)) {
+        // skip header lines or empty lines
         if (strstr(line, "Lexeme") || strstr(line, "Token Name") || strlen(line) < 3)
             continue;
-            
+
         char lexeme[100], tokenName[100];
         if (sscanf(line, "%s | %s", lexeme, tokenName) == 2) {
-            // Skip comments - don't add them to token array
-            if (strcmp(tokenName, "C_SINGLE_LINE") == 0 || 
-                strcmp(tokenName, "C_MULTI_LINE") == 0) {
+
+            // skip comments
+            if (strcmp(tokenName, "C_SINGLE_LINE") == 0 || strcmp(tokenName, "C_MULTI_LINE") == 0)
                 continue;
-            }
-            
+
             tokens[tokenCount].lexeme = strdup(lexeme);
             tokens[tokenCount].lineNumber = tokenCount + 1;
-            
+
             int category, value;
+
+            // look up the lexeme in the hash table
             if (hashLookup(lexeme, &category, &value)) {
-                tokens[tokenCount].tokenValue = value;
+                tokens[tokenCount].tokenValue = (TokenCategory)value;  // use enum directly
+                tokens[tokenCount].category = category;
             } else {
-                tokens[tokenCount].tokenValue = getTokenValueFromName(tokenName);
-            }
-            
+    if (strcmp(tokenName, "L_IDENTIFIER") == 0)
+        tokens[tokenCount].tokenValue = L_IDENTIFIER;
+    else if (strcmp(tokenName, "L_BILANG_LITERAL") == 0)
+        tokens[tokenCount].tokenValue = L_BILANG_LITERAL;
+    else if (strcmp(tokenName, "L_LUTANG_LITERAL") == 0)
+        tokens[tokenCount].tokenValue = L_LUTANG_LITERAL;
+    else if (strcmp(tokenName, "L_KWERDAS_LITERAL") == 0)
+        tokens[tokenCount].tokenValue = L_KWERDAS_LITERAL;
+    else if (strcmp(tokenName, "L_BULYAN_LITERAL") == 0)
+        tokens[tokenCount].tokenValue = L_BULYAN_LITERAL;
+
+    // delimiters
+    else if (strcmp(tokenName, "D_LPAREN") == 0)
+        tokens[tokenCount].tokenValue = D_LPAREN;
+    else if (strcmp(tokenName, "D_RPAREN") == 0)
+        tokens[tokenCount].tokenValue = D_RPAREN;
+    else if (strcmp(tokenName, "D_LBRACE") == 0)
+        tokens[tokenCount].tokenValue = D_LBRACE;
+    else if (strcmp(tokenName, "D_RBRACE") == 0)
+        tokens[tokenCount].tokenValue = D_RBRACE;
+    else if (strcmp(tokenName, "D_LBRACKET") == 0)
+        tokens[tokenCount].tokenValue = D_LBRACKET;
+    else if (strcmp(tokenName, "D_RBRACKET") == 0)
+        tokens[tokenCount].tokenValue = D_RBRACKET;
+    else if (strcmp(tokenName, "D_COMMA") == 0)
+        tokens[tokenCount].tokenValue = D_COMMA;
+    else if (strcmp(tokenName, "D_SEMICOLON") == 0)
+        tokens[tokenCount].tokenValue = D_SEMICOLON;
+    else if (strcmp(tokenName, "D_COLON") == 0)
+        tokens[tokenCount].tokenValue = D_COLON;
+    else if (strcmp(tokenName, "D_DOT") == 0)
+        tokens[tokenCount].tokenValue = D_DOT;
+    else if (strcmp(tokenName, "D_QUOTE") == 0)
+        tokens[tokenCount].tokenValue = D_QUOTE;
+    else if (strcmp(tokenName, "D_SQUOTE") == 0)
+        tokens[tokenCount].tokenValue = D_SQUOTE;
+
+    // operators
+    else if (strcmp(tokenName, "O_PLUS") == 0)
+        tokens[tokenCount].tokenValue = O_PLUS;
+    else if (strcmp(tokenName, "O_MINUS") == 0)
+        tokens[tokenCount].tokenValue = O_MINUS;
+    else if (strcmp(tokenName, "O_MULTIPLY") == 0)
+        tokens[tokenCount].tokenValue = O_MULTIPLY;
+    else if (strcmp(tokenName, "O_DIVIDE") == 0)
+        tokens[tokenCount].tokenValue = O_DIVIDE;
+    else if (strcmp(tokenName, "O_ASSIGN") == 0)
+        tokens[tokenCount].tokenValue = O_ASSIGN;
+    else if (strcmp(tokenName, "O_EQUAL") == 0)
+        tokens[tokenCount].tokenValue = O_EQUAL;
+    else if (strcmp(tokenName, "O_NOT_EQUAL") == 0)
+        tokens[tokenCount].tokenValue = O_NOT_EQUAL;
+    else if (strcmp(tokenName, "O_LESS") == 0)
+        tokens[tokenCount].tokenValue = O_LESS;
+    else if (strcmp(tokenName, "O_GREATER") == 0)
+        tokens[tokenCount].tokenValue = O_GREATER;
+    else if (strcmp(tokenName, "O_LESS_EQ") == 0)
+        tokens[tokenCount].tokenValue = O_LESS_EQ;
+    else if (strcmp(tokenName, "O_GREATER_EQ") == 0)
+        tokens[tokenCount].tokenValue = O_GREATER_EQ;
+    else if (strcmp(tokenName, "O_AND") == 0)
+        tokens[tokenCount].tokenValue = O_AND;
+    else if (strcmp(tokenName, "O_OR") == 0)
+        tokens[tokenCount].tokenValue = O_OR;
+    else if (strcmp(tokenName, "O_NOT") == 0)
+        tokens[tokenCount].tokenValue = O_NOT;
+
+    else {
+        printf("Unknown token: %s (%s)\n", lexeme, tokenName);
+        exit(1);
+    }
+
+    tokens[tokenCount].category = CAT_UNKNOWN;
+}
+
+
             tokenCount++;
         }
     }
+
     fclose(file);
     printf("Loaded %d tokens from %s\n", tokenCount, filename);
 }
+
 
 /* ------------------ Utility Functions ------------------ */
 
@@ -107,8 +185,13 @@ Token getCurrentToken() {
 }
 
 int check(int expected) {
-    return tokens[currentToken].tokenValue == expected;
+    int result = tokens[currentToken].tokenValue == expected;
+    printf("check(%d) against token '%s' with value %d → %s\n",
+           expected, tokens[currentToken].lexeme, tokens[currentToken].tokenValue,
+           result ? "true" : "false");
+    return result;
 }
+
 
 void match(int expected) {
     if (tokens[currentToken].tokenValue == expected) {
@@ -133,6 +216,7 @@ void parseRelOp() {
         exit(1);
     }
 }
+
 
 void parseFactor() {
 
@@ -172,9 +256,12 @@ void parseExpressionTail() {
 }
 
 void parseExpression() {
+    printf("parseExpression() starting at token '%s'\n", tokens[currentToken].lexeme);
     parseTerm();
     parseExpressionTail();
+    printf("parseExpression() ending at token '%s'\n", tokens[currentToken].lexeme);
 }
+
 
 void parseBooleanExpression() {
     parseExpression();
@@ -183,64 +270,105 @@ void parseBooleanExpression() {
 }
 
 void parseAssignmentStatement() {
+    // Match the variable
     match(L_IDENTIFIER);
+
+    // Match '='
     match(O_ASSIGN);
-    parseExpression();
+
+    // Only parse an expression if the next token is valid for an expression
+    if (check(L_BILANG_LITERAL) || check(L_LUTANG_LITERAL) || 
+        check(L_KWERDAS_LITERAL) || check(L_BULYAN_LITERAL) || 
+        check(L_IDENTIFIER) || check(D_LPAREN)) 
+    {
+        parseExpression();
+    } 
+    else {
+        printf("Syntax Error at line %d: Expected expression after '='\n",
+               tokens[currentToken].lineNumber);
+        exit(1);
+    }
+
+    // Match semicolon
     match(D_SEMICOLON);
 }
+
 
 
 
 void parseDeclarationStatement() {
     // Match data type
-    if (check(R_BILANG) || check(R_LUTANG) || check(R_BULYAN) || check(R_KWERDAS))
+    if (check(R_BILANG) || check(R_LUTANG) || check(R_BULYAN) || check(R_KWERDAS)) {
         currentToken++;
-    else {
-        printf("Syntax Error: Expected data type\n");
+    } else {
+        printf("Syntax Error at line %d: Expected data type\n", tokens[currentToken].lineNumber);
         exit(1);
     }
 
-    // Match identifier
+    // Match variable name
     match(L_IDENTIFIER);
-    
+
     // Optional array brackets: [size]
     if (check(D_LBRACKET)) {
         match(D_LBRACKET);
         if (check(L_BILANG_LITERAL)) {
             match(L_BILANG_LITERAL);  // Array size
+        } else {
+            printf("Syntax Error at line %d: Expected array size\n", tokens[currentToken].lineNumber);
+            exit(1);
         }
         match(D_RBRACKET);
     }
-    
-    // Optional initialization: = expression
+
+    // Optional initialization: '=' followed by expression
     if (check(O_ASSIGN)) {
         match(O_ASSIGN);
-        parseExpression();
+
+        if (check(L_BILANG_LITERAL) || check(L_LUTANG_LITERAL) || 
+            check(L_KWERDAS_LITERAL) || check(L_BULYAN_LITERAL) || 
+            check(L_IDENTIFIER) || check(D_LPAREN)) 
+        {
+            parseExpression();
+        } else {
+            printf("Syntax Error at line %d: Expected expression after '='\n",
+                   tokens[currentToken].lineNumber);
+            exit(1);
+        }
     }
-    
-    // Handle multiple declarations: , identifier [size] = expression
+
+    // Handle multiple declarations separated by commas
     while (check(D_COMMA)) {
         match(D_COMMA);
         match(L_IDENTIFIER);
-        
+
         // Optional array brackets
         if (check(D_LBRACKET)) {
             match(D_LBRACKET);
-            if (check(L_BILANG_LITERAL)) {
-                match(L_BILANG_LITERAL);
-            }
+            if (check(L_BILANG_LITERAL)) match(L_BILANG_LITERAL);
             match(D_RBRACKET);
         }
-        
+
         // Optional initialization
         if (check(O_ASSIGN)) {
             match(O_ASSIGN);
-            parseExpression();
+
+            if (check(L_BILANG_LITERAL) || check(L_LUTANG_LITERAL) || 
+                check(L_KWERDAS_LITERAL) || check(L_BULYAN_LITERAL) || 
+                check(L_IDENTIFIER) || check(D_LPAREN)) 
+            {
+                parseExpression();
+            } else {
+                printf("Syntax Error at line %d: Expected expression after '='\n",
+                       tokens[currentToken].lineNumber);
+                exit(1);
+            }
         }
     }
-    
+
+    // Match semicolon at the end
     match(D_SEMICOLON);
 }
+
 
 void parseLoopStatement() {
     if (check(K_PARA)) {
