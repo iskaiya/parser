@@ -2,13 +2,13 @@ wala ugat(){
 
 bilang z = 13;
 
-lutang y;
+lutang y =;
 //comment ito
 
 /*multi line 
 comment
 */
-kwerdas StringIto[30] = "ITO AY STRING";
+kwerdas test[30] = "ITO AY STRING";
 
 	titik titikIto = ‘a’;
 

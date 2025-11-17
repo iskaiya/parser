@@ -807,12 +807,12 @@ static const char *token_value_name(const Token *t) {
 }
 
 //Print token as in this format:
-// Lexeme | Token
+// Lexeme | Token | LineNumber
 void printToken(FILE *file, Token *t) {
     const char *lex;
     lex = t->lexeme;
     const char *name = token_value_name(t);
-    fprintf(file, "%-15s | %s\n", lex, name);
+    fprintf(file, "%-15s | %-20s | %d \n", lex, name, t -> lineNumber);
 }
 
 //create a token

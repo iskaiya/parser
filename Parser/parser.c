@@ -18,10 +18,10 @@ void syntaxError(const char* message, int lineNumber, const char* lexeme) {
 
 
 
-/* ------------------ Token Loading ------------------ */
+// Token Loading
 
 void loadTokensFromFile(const char *filename) {
-    initialize_table();  // fill your hash table with keywords, operators, literals, etc.
+    initialize_table();
 
     FILE *file = fopen(filename, "r");
     if (!file) {
@@ -36,14 +36,15 @@ void loadTokensFromFile(const char *filename) {
             continue;
 
         char lexeme[100], tokenName[100];
-        if (sscanf(line, "%s | %s", lexeme, tokenName) == 2) {
+        int lineNum;
+        if (sscanf(line, "%s | %s | %d", lexeme, tokenName, &lineNum) == 3) {
 
             // skip comments
             if (strcmp(tokenName, "C_SINGLE_LINE") == 0 || strcmp(tokenName, "C_MULTI_LINE") == 0)
                 continue;
 
             tokens[tokenCount].lexeme = strdup(lexeme);
-            tokens[tokenCount].lineNumber = tokenCount + 1;
+            tokens[tokenCount].lineNumber = lineNum;
 
             int category, value;
 
@@ -118,9 +119,11 @@ void loadTokensFromFile(const char *filename) {
         tokens[tokenCount].tokenValue = O_OR;
     else if (strcmp(tokenName, "O_NOT") == 0)
         tokens[tokenCount].tokenValue = O_NOT;
+    else if (strcmp(tokenName, "O_MODULO") == 0)
+        tokens[tokenCount].tokenValue = O_MODULO;   
 
     else {
-        syntaxError("Unknown token", 0, lexeme); // customize message
+        syntaxError("Unknown token", 0, lexeme); // token not recognized
     }
 
     tokens[tokenCount].category = CAT_UNKNOWN;
@@ -136,7 +139,7 @@ void loadTokensFromFile(const char *filename) {
 }
 
 
-/* ------------------ Utility Functions ------------------ */
+// Utility Functions
 
 Token getCurrentToken() {
     return tokens[currentToken];
@@ -152,11 +155,11 @@ void match(int expected) {
     if (tokens[currentToken].tokenValue == expected) {
         currentToken++;
     } else {
-        syntaxError("Expected token mismatch", tokens[currentToken].lineNumber, tokens[currentToken].lexeme);
+        syntaxError("Mismatched expected token", tokens[currentToken].lineNumber, tokens[currentToken].lexeme);
     }
 }
 
-/* ------------------ Grammar Implementation (Bottom-Up Order) ------------------ */
+// Grammar Implementation (Bottom-Up Order)
 
 void parseRelOp() {
     if (check(O_EQUAL) || check(O_NOT_EQUAL) || check(O_GREATER) || check(O_LESS) ||
@@ -181,6 +184,7 @@ void parseFactor() {
     }
 }
 
+// Operator precedence
 void parseTermTail() {
     while (check(O_MULTIPLY) || check(O_DIVIDE)) {
         currentToken++;
@@ -248,13 +252,13 @@ void parseDeclarationStatement() {
     // Match variable name
     match(L_IDENTIFIER);
 
-    // Optional array brackets: [size]
+    // Optional array brackets: array_name[size]
     if (check(D_LBRACKET)) {
         match(D_LBRACKET);
         if (check(L_BILANG_LITERAL)) {
             match(L_BILANG_LITERAL);  // Array size
         } else {
-            syntaxError("Expected array size\n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme); // customize message
+            syntaxError("Expected array size\n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme);
         }
         match(D_RBRACKET);
     }
@@ -269,7 +273,7 @@ void parseDeclarationStatement() {
         {
             parseExpression();
         } else {
-            syntaxError("Expected expression after '='\n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme); // customize message
+            syntaxError("Expected expression after '='\n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme);
         }
     }
 
@@ -295,7 +299,7 @@ void parseDeclarationStatement() {
             {
                 parseExpression();
             } else {
-                syntaxError("Expected expression after '='\n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme); // customize message
+                syntaxError("Expected expression after '='\n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme);
             }
         }
     }
@@ -317,11 +321,11 @@ void parseLoopStatement() {
         parseBooleanExpression();
         match(D_SEMICOLON);
         
-        // Third part: increment (NO semicolon inside for loop header)
+        // Third part: increment (No semicolon inside for loop header)
         match(L_IDENTIFIER);
         match(O_ASSIGN);
         parseExpression();
-        // NO semicolon here!
+        // No semicolon here!
         
         match(D_RPAREN);
         match(D_LBRACE);
@@ -387,7 +391,7 @@ void parseStatement() {
     else if (check(K_PARA) || check(K_HABANG) || check(K_GAWIN))
         parseLoopStatement();
     else {
-        syntaxError("Unexpected \n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme); // customize message
+        syntaxError("Unexpected \n", tokens[currentToken].lineNumber, tokens[currentToken].lexeme);
     }
 }
 

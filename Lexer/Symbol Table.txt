@@ -1,497 +1,499 @@
 Lexeme           | Token Name
-wala            | R_WALA
-ugat            | R_UGAT
-(               | D_LPAREN
-)               | D_RPAREN
-{               | D_LBRACE
-bilang          | R_BILANG
-z               | L_IDENTIFIER
-=               | O_ASSIGN
-13              | L_BILANG_LITERAL
-;               | D_SEMICOLON
-lutang          | R_LUTANG
-y               | L_IDENTIFIER
-;               | D_SEMICOLON
-//comment ito   | C_SINGLE_LINE
+wala            | R_WALA               | 1 
+ugat            | R_UGAT               | 1 
+(               | D_LPAREN             | 1 
+)               | D_RPAREN             | 1 
+{               | D_LBRACE             | 1 
+bilang          | R_BILANG             | 3 
+z               | L_IDENTIFIER         | 3 
+=               | O_ASSIGN             | 3 
+13              | L_BILANG_LITERAL     | 3 
+;               | D_SEMICOLON          | 3 
+lutang          | R_LUTANG             | 5 
+y               | L_IDENTIFIER         | 5 
+=               | O_ASSIGN             | 5 
+;               | D_SEMICOLON          | 5 
+//comment ito   | C_SINGLE_LINE        | 6 
 /*multi line 
 comment
-*/ | C_MULTI_LINE
-kwerdas         | R_KWERDAS
-StringIto       | L_IDENTIFIER
-[               | D_LBRACKET
-30              | L_BILANG_LITERAL
-]               | D_RBRACKET
-=               | O_ASSIGN
-"ITO AY STRING" | L_KWERDAS_LITERAL
-;               | D_SEMICOLON
-titik           | R_TITIK
-titikIto        | L_IDENTIFIER
-=               | O_ASSIGN
-‘a’         | UNKNOWN_CATEGORY
-;               | D_SEMICOLON
-tanim           | K_TANIM
-(               | D_LPAREN
-“             | UNKNOWN_CATEGORY
-%               | O_MODULO
-lf              | L_IDENTIFIER
-,               | D_COMMA
-%               | O_MODULO
-d               | L_IDENTIFIER
-”             | UNKNOWN_CATEGORY
-,               | D_COMMA
-y               | L_IDENTIFIER
-,               | D_COMMA
-z               | L_IDENTIFIER
-)               | D_RPAREN
-;               | D_SEMICOLON
-habang          | K_HABANG
-(               | D_LPAREN
-bilang          | R_BILANG
-z               | L_IDENTIFIER
-=               | O_ASSIGN
-0               | L_BILANG_LITERAL
-)               | D_RPAREN
-{               | D_LBRACE
-ani             | K_ANI
-(               | D_LPAREN
-“OUTPUT”    | UNKNOWN_CATEGORY
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-para            | K_PARA
-(               | D_LPAREN
-bilang          | R_BILANG
-i               | L_IDENTIFIER
-=               | O_ASSIGN
-0               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-i               | L_IDENTIFIER
-<               | O_LESS
-10              | L_BILANG_LITERAL
-;               | D_SEMICOLON
-i               | L_IDENTIFIER
-+               | O_PLUS
-+               | O_PLUS
-)               | D_RPAREN
-{               | D_LBRACE
-ani             | K_ANI
-(               | D_LPAREN
-“i            | UNKNOWN_CATEGORY
-=               | O_ASSIGN
-%               | O_MODULO
-d               | L_IDENTIFIER
-”             | UNKNOWN_CATEGORY
-,               | D_COMMA
-i               | L_IDENTIFIER
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-doble           | R_DOBLE
-itoayDoble      | L_IDENTIFIER
-=               | O_ASSIGN
-12.2321         | L_LUTANG_LITERAL
-;               | D_SEMICOLON
-itakda          | N_ITAKDA
-ito             | L_IDENTIFIER
-=               | O_ASSIGN
-"HELLO"         | L_KWERDAS_LITERAL
-;               | D_SEMICOLON
-para            | K_PARA
-i               | L_IDENTIFIER
-mula            | N_MULA
-0               | L_BILANG_LITERAL
-sa              | N_SA
-5               | L_BILANG_LITERAL
-{               | D_LBRACE
-bunga           | N_BUNGA
-ay              | N_AY
-(               | D_LPAREN
-“BUNGA        | UNKNOWN_CATEGORY
-BUNGA           | L_IDENTIFIER
-”             | UNKNOWN_CATEGORY
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-sampleConstString | R_SAMPLE_CONST_STRING
-;               | D_SEMICOLON
-kung            | K_KUNG
-(               | D_LPAREN
-!               | O_NOT
-x               | L_IDENTIFIER
-)               | D_RPAREN
-{               | D_LBRACE
-ani             | K_ANI
-(               | D_LPAREN
-"!x is true\n"  | L_KWERDAS_LITERAL
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-kundi           | K_KUNDI
-{               | D_LBRACE
-ani             | K_ANI
-(               | D_LPAREN
-"!x is false\n" | L_KWERDAS_LITERAL
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-kung            | K_KUNG
-(               | D_LPAREN
-(               | D_LPAREN
-5               | L_BILANG_LITERAL
->=              | O_GREATER_EQ
-3               | L_BILANG_LITERAL
-)               | D_RPAREN
-&&              | O_AND
-(               | D_LPAREN
-2               | L_BILANG_LITERAL
-<               | O_LESS
-4               | L_BILANG_LITERAL
-)               | D_RPAREN
-)               | D_RPAREN
-{               | D_LBRACE
-ani             | K_ANI
-(               | D_LPAREN
-"(5 >= 3) && (2 < 4) is true\n" | L_KWERDAS_LITERAL
-)               | D_RPAREN
-;               | D_SEMICOLON
-kundi           | K_KUNDI
-ani             | K_ANI
-(               | D_LPAREN
-"(5 >= 3) && (2 < 4) is false\n" | L_KWERDAS_LITERAL
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-kung            | K_KUNG
-(               | D_LPAREN
-(               | D_LPAREN
-5               | L_BILANG_LITERAL
-<               | O_LESS
-3               | L_BILANG_LITERAL
-)               | D_RPAREN
-||              | O_OR
-(               | D_LPAREN
-2               | L_BILANG_LITERAL
-<               | O_LESS
-1               | L_BILANG_LITERAL
-)               | D_RPAREN
-)               | D_RPAREN
-{               | D_LBRACE
-ani             | K_ANI
-(               | D_LPAREN
-"(5 < 3) || (2 < 1) is true\n" | L_KWERDAS_LITERAL
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-kundi           | K_KUNDI
-{               | D_LBRACE
-ani             | K_ANI
-(               | D_LPAREN
-"(5 < 3) || (2 < 1) is false\n" | L_KWERDAS_LITERAL
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-kundiman        | K_KUNDIMAN
-{               | D_LBRACE
-bunga           | N_BUNGA
-ang             | N_ANG
-(               | D_LPAREN
-“wala”      | UNKNOWN_CATEGORY
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-balik           | R_BALIK
-0               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-tuloy           | K_TULOY
-}               | D_RBRACE
-i               | L_IDENTIFIER
-=               | O_ASSIGN
-1               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-gawin           | K_GAWIN
-{               | D_LBRACE
-i               | L_IDENTIFIER
-+               | O_PLUS
-+               | O_PLUS
-;               | D_SEMICOLON
-}               | D_RBRACE
-habang          | K_HABANG
-(               | D_LPAREN
-i               | L_IDENTIFIER
-<               | O_LESS
-10              | L_BILANG_LITERAL
-)               | D_RPAREN
-;               | D_SEMICOLON
-bilang          | R_BILANG
-j               | L_IDENTIFIER
-=               | O_ASSIGN
-0               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-habang          | K_HABANG
-(               | D_LPAREN
-j               | L_IDENTIFIER
-<               | O_LESS
-5               | L_BILANG_LITERAL
-)               | D_RPAREN
-{               | D_LBRACE
-j               | L_IDENTIFIER
-+               | O_PLUS
-+               | O_PLUS
-;               | D_SEMICOLON
-}               | D_RBRACE
-bilang          | R_BILANG
-sum             | L_IDENTIFIER
-=               | O_ASSIGN
-1               | L_BILANG_LITERAL
-+               | O_PLUS
-2               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-bilang          | R_BILANG
-product         | L_IDENTIFIER
-=               | O_ASSIGN
-1               | L_BILANG_LITERAL
-*               | O_MULTIPLY
-2               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-bilang          | R_BILANG
-quotient        | L_IDENTIFIER
-=               | O_ASSIGN
-6               | L_BILANG_LITERAL
-/               | O_DIVIDE
-3               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-bilang          | R_BILANG
-exponent        | L_IDENTIFIER
-=               | O_ASSIGN
-2               | L_BILANG_LITERAL
-^               | O_POW
-3               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-bilang          | R_BILANG
-modulo          | L_IDENTIFIER
-=               | O_ASSIGN
-10              | L_BILANG_LITERAL
-%               | O_MODULO
-4               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-bilang          | R_BILANG
-difference      | L_IDENTIFIER
-=               | O_ASSIGN
-10              | L_BILANG_LITERAL
--               | O_MINUS
-6               | L_BILANG_LITERAL
-:               | UNKNOWN_CATEGORY
-protektado      | K_PROTEKTADO
-bilang          | R_BILANG
-el              | L_IDENTIFIER
-=               | O_ASSIGN
-13              | L_BILANG_LITERAL
-;               | D_SEMICOLON
-pribado         | K_PRIBADO
-bilang          | R_BILANG
-ma              | L_IDENTIFIER
-=               | O_ASSIGN
-14              | L_BILANG_LITERAL
-;               | D_SEMICOLON
-statik          | K_STATIK
-bilang          | R_BILANG
-ito             | L_IDENTIFIER
-=               | O_ASSIGN
-123             | L_BILANG_LITERAL
-;               | D_SEMICOLON
-//Continue // return (tuloy/balik) | C_SINGLE_LINE
-//Public class  | C_SINGLE_LINE
-publiko         | K_PUBLIKO
-pangkat         | K_PANGKAT
-Sample          | L_IDENTIFIER
-{               | D_LBRACE
-pribado         | K_PRIBADO
-:               | UNKNOWN_CATEGORY
-statik          | K_STATIK
-wala            | R_WALA
-showNumbers     | L_IDENTIFIER
-(               | D_LPAREN
-)               | D_RPAREN
-{               | D_LBRACE
-para            | K_PARA
-(               | D_LPAREN
-bilang          | R_BILANG
-i               | L_IDENTIFIER
-=               | O_ASSIGN
-1               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-i               | L_IDENTIFIER
-<=              | O_LESS_EQ
-5               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-i               | L_IDENTIFIER
-+               | O_PLUS
-+               | O_PLUS
-)               | D_RPAREN
-{               | D_LBRACE
-kung            | K_KUNG
-(               | D_LPAREN
-i               | L_IDENTIFIER
-==              | O_EQUAL
-3               | L_BILANG_LITERAL
-)               | D_RPAREN
-Tuloy           | L_IDENTIFIER
-;               | D_SEMICOLON
-kung            | K_KUNG
-(               | D_LPAREN
-i               | L_IDENTIFIER
-==              | O_EQUAL
-5               | L_BILANG_LITERAL
-)               | D_RPAREN
-Balik           | L_IDENTIFIER
-;               | D_SEMICOLON
-ani             | K_ANI
-(               | D_LPAREN
-i               | L_IDENTIFIER
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-}               | D_RBRACE
-publiko         | K_PUBLIKO
-statik          | K_STATIK
-wala            | R_WALA
-ugat            | R_UGAT
-(               | D_LPAREN
-kwerdas         | R_KWERDAS
-[               | D_LBRACKET
-]               | D_RBRACKET
-args            | L_IDENTIFIER
-)               | D_RPAREN
-showNumbers     | L_IDENTIFIER
-(               | D_LPAREN
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-}               | D_RBRACE
-kiss            | R_KISS
-;               | D_SEMICOLON
-pi              | R_PI
-;               | D_SEMICOLON
-constSampleString | L_IDENTIFIER
-;               | D_SEMICOLON
-E_num           | R_E
-;               | D_SEMICOLON
-(               | D_LPAREN
-boolean         | L_IDENTIFIER
-values          | L_IDENTIFIER
-:               | UNKNOWN_CATEGORY
-tama            | R_TAMA
-/               | O_DIVIDE
-mali            | R_MALI
-)               | D_RPAREN
-bulyan          | R_BULYAN
-ng              | N_NG
-x               | L_IDENTIFIER
-=               | O_ASSIGN
-tama            | R_TAMA
-;               | D_SEMICOLON
-bulyan          | R_BULYAN
-ng              | N_NG
-y               | L_IDENTIFIER
-=               | O_ASSIGN
-mali            | R_MALI
-;               | D_SEMICOLON
-bulyan          | R_BULYAN
-ng              | N_NG
-z               | L_IDENTIFIER
-=               | O_ASSIGN
-tama            | R_TAMA
-;               | D_SEMICOLON
-Kung            | L_IDENTIFIER
-(               | D_LPAREN
-(               | D_LPAREN
-x               | L_IDENTIFIER
-&&              | O_AND
-z               | L_IDENTIFIER
-)               | D_RPAREN
-||              | O_OR
-y               | L_IDENTIFIER
-)               | D_RPAREN
-{               | D_LBRACE
-ani             | K_ANI
-(               | D_LPAREN
-"Expression result: tama" | L_KWERDAS_LITERAL
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-kundi           | K_KUNDI
-{               | D_LBRACE
-ani             | K_ANI
-(               | D_LPAREN
-"Expression result: mali" | L_KWERDAS_LITERAL
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-wakas           | N_WAKAS
-Itakda          | L_IDENTIFIER
-Variable        | L_IDENTIFIER
-=               | O_ASSIGN
-5               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-para            | K_PARA
-(               | D_LPAREN
-bilang          | R_BILANG
-i               | L_IDENTIFIER
-=               | O_ASSIGN
-1               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-1               | L_BILANG_LITERAL
-<=              | O_LESS_EQ
-5               | L_BILANG_LITERAL
-;               | D_SEMICOLON
-i               | L_IDENTIFIER
-+               | O_PLUS
-+               | O_PLUS
-)               | D_RPAREN
-{               | D_LBRACE
-kung            | K_KUNG
-(               | D_LPAREN
-i               | L_IDENTIFIER
-==              | O_EQUAL
-3               | L_BILANG_LITERAL
-)               | D_RPAREN
-tibag           | K_TIBAG
-;               | D_SEMICOLON
-Ani             | L_IDENTIFIER
-(               | D_LPAREN
-i               | L_IDENTIFIER
-)               | D_RPAREN
-;               | D_SEMICOLON
-}               | D_RBRACE
-+               | O_PLUS
--               | O_MINUS
-*               | O_MULTIPLY
-/               | O_DIVIDE
-^               | O_POW
-%               | O_MODULO
-=               | O_ASSIGN
-==              | O_EQUAL
-!=              | O_NOT_EQUAL
-<               | O_LESS
->               | O_GREATER
-<=              | O_LESS_EQ
->=              | O_GREATER_EQ
-&&              | O_AND
-||              | O_OR
-!               | O_NOT
-&               | UNKNOWN_CATEGORY
-|               | UNKNOWN_CATEGORY
-;               | D_SEMICOLON
-{               | D_LBRACE
-}               | D_RBRACE
-(               | D_LPAREN
-)               | D_RPAREN
-[               | D_LBRACKET
-]               | D_RBRACKET
-,               | D_COMMA
-.               | D_DOT
-errors          | L_IDENTIFIER
-:               | UNKNOWN_CATEGORY
+*/ | C_MULTI_LINE         | 8 
+kwerdas         | R_KWERDAS            | 11 
+test            | L_IDENTIFIER         | 11 
+!               | O_NOT                | 11 
+[               | D_LBRACKET           | 11 
+30              | L_BILANG_LITERAL     | 11 
+]               | D_RBRACKET           | 11 
+=               | O_ASSIGN             | 11 
+"ITO AY STRING" | L_KWERDAS_LITERAL    | 11 
+;               | D_SEMICOLON          | 11 
+titik           | R_TITIK              | 13 
+titikIto        | L_IDENTIFIER         | 13 
+=               | O_ASSIGN             | 13 
+‘a’         | UNKNOWN_CATEGORY     | 13 
+;               | D_SEMICOLON          | 13 
+tanim           | K_TANIM              | 15 
+(               | D_LPAREN             | 15 
+“             | UNKNOWN_CATEGORY     | 15 
+%               | O_MODULO             | 15 
+lf              | L_IDENTIFIER         | 15 
+,               | D_COMMA              | 15 
+%               | O_MODULO             | 15 
+d               | L_IDENTIFIER         | 15 
+”             | UNKNOWN_CATEGORY     | 15 
+,               | D_COMMA              | 15 
+y               | L_IDENTIFIER         | 15 
+,               | D_COMMA              | 15 
+z               | L_IDENTIFIER         | 15 
+)               | D_RPAREN             | 15 
+;               | D_SEMICOLON          | 15 
+habang          | K_HABANG             | 17 
+(               | D_LPAREN             | 17 
+bilang          | R_BILANG             | 17 
+z               | L_IDENTIFIER         | 17 
+=               | O_ASSIGN             | 17 
+0               | L_BILANG_LITERAL     | 17 
+)               | D_RPAREN             | 17 
+{               | D_LBRACE             | 17 
+ani             | K_ANI                | 18 
+(               | D_LPAREN             | 18 
+“OUTPUT”    | UNKNOWN_CATEGORY     | 18 
+)               | D_RPAREN             | 18 
+;               | D_SEMICOLON          | 18 
+}               | D_RBRACE             | 19 
+para            | K_PARA               | 21 
+(               | D_LPAREN             | 21 
+bilang          | R_BILANG             | 21 
+i               | L_IDENTIFIER         | 21 
+=               | O_ASSIGN             | 21 
+0               | L_BILANG_LITERAL     | 21 
+;               | D_SEMICOLON          | 21 
+i               | L_IDENTIFIER         | 21 
+<               | O_LESS               | 21 
+10              | L_BILANG_LITERAL     | 21 
+;               | D_SEMICOLON          | 21 
+i               | L_IDENTIFIER         | 21 
++               | O_PLUS               | 21 
++               | O_PLUS               | 21 
+)               | D_RPAREN             | 21 
+{               | D_LBRACE             | 21 
+ani             | K_ANI                | 22 
+(               | D_LPAREN             | 22 
+“i            | UNKNOWN_CATEGORY     | 22 
+=               | O_ASSIGN             | 22 
+%               | O_MODULO             | 22 
+d               | L_IDENTIFIER         | 22 
+”             | UNKNOWN_CATEGORY     | 22 
+,               | D_COMMA              | 22 
+i               | L_IDENTIFIER         | 22 
+)               | D_RPAREN             | 22 
+;               | D_SEMICOLON          | 22 
+}               | D_RBRACE             | 24 
+doble           | R_DOBLE              | 25 
+itoayDoble      | L_IDENTIFIER         | 25 
+=               | O_ASSIGN             | 25 
+12.2321         | L_LUTANG_LITERAL     | 25 
+;               | D_SEMICOLON          | 25 
+itakda          | N_ITAKDA             | 26 
+ito             | L_IDENTIFIER         | 26 
+=               | O_ASSIGN             | 26 
+"HELLO"         | L_KWERDAS_LITERAL    | 26 
+;               | D_SEMICOLON          | 26 
+para            | K_PARA               | 27 
+i               | L_IDENTIFIER         | 27 
+mula            | N_MULA               | 27 
+0               | L_BILANG_LITERAL     | 27 
+sa              | N_SA                 | 27 
+5               | L_BILANG_LITERAL     | 27 
+{               | D_LBRACE             | 27 
+bunga           | N_BUNGA              | 28 
+ay              | N_AY                 | 28 
+(               | D_LPAREN             | 28 
+“BUNGA        | UNKNOWN_CATEGORY     | 28 
+BUNGA           | L_IDENTIFIER         | 28 
+”             | UNKNOWN_CATEGORY     | 28 
+)               | D_RPAREN             | 28 
+;               | D_SEMICOLON          | 28 
+}               | D_RBRACE             | 29 
+sampleConstString | R_C_SAMPLE_CONST_STRING | 30 
+;               | D_SEMICOLON          | 30 
+kung            | K_KUNG               | 32 
+(               | D_LPAREN             | 32 
+!               | O_NOT                | 32 
+x               | L_IDENTIFIER         | 32 
+)               | D_RPAREN             | 32 
+{               | D_LBRACE             | 32 
+ani             | K_ANI                | 33 
+(               | D_LPAREN             | 33 
+"!x is true\n"  | L_KWERDAS_LITERAL    | 33 
+)               | D_RPAREN             | 33 
+;               | D_SEMICOLON          | 33 
+}               | D_RBRACE             | 34 
+kundi           | K_KUNDI              | 35 
+{               | D_LBRACE             | 35 
+ani             | K_ANI                | 36 
+(               | D_LPAREN             | 36 
+"!x is false\n" | L_KWERDAS_LITERAL    | 36 
+)               | D_RPAREN             | 36 
+;               | D_SEMICOLON          | 36 
+}               | D_RBRACE             | 37 
+kung            | K_KUNG               | 39 
+(               | D_LPAREN             | 39 
+(               | D_LPAREN             | 39 
+5               | L_BILANG_LITERAL     | 39 
+>=              | O_GREATER_EQ         | 39 
+3               | L_BILANG_LITERAL     | 39 
+)               | D_RPAREN             | 39 
+&&              | O_AND                | 39 
+(               | D_LPAREN             | 39 
+2               | L_BILANG_LITERAL     | 39 
+<               | O_LESS               | 39 
+4               | L_BILANG_LITERAL     | 39 
+)               | D_RPAREN             | 39 
+)               | D_RPAREN             | 39 
+{               | D_LBRACE             | 39 
+ani             | K_ANI                | 40 
+(               | D_LPAREN             | 40 
+"(5 >= 3) && (2 < 4) is true\n" | L_KWERDAS_LITERAL    | 40 
+)               | D_RPAREN             | 40 
+;               | D_SEMICOLON          | 40 
+kundi           | K_KUNDI              | 41 
+ani             | K_ANI                | 42 
+(               | D_LPAREN             | 42 
+"(5 >= 3) && (2 < 4) is false\n" | L_KWERDAS_LITERAL    | 42 
+)               | D_RPAREN             | 42 
+;               | D_SEMICOLON          | 42 
+}               | D_RBRACE             | 43 
+kung            | K_KUNG               | 45 
+(               | D_LPAREN             | 45 
+(               | D_LPAREN             | 45 
+5               | L_BILANG_LITERAL     | 45 
+<               | O_LESS               | 45 
+3               | L_BILANG_LITERAL     | 45 
+)               | D_RPAREN             | 45 
+||              | O_OR                 | 45 
+(               | D_LPAREN             | 45 
+2               | L_BILANG_LITERAL     | 45 
+<               | O_LESS               | 45 
+1               | L_BILANG_LITERAL     | 45 
+)               | D_RPAREN             | 45 
+)               | D_RPAREN             | 45 
+{               | D_LBRACE             | 45 
+ani             | K_ANI                | 46 
+(               | D_LPAREN             | 46 
+"(5 < 3) || (2 < 1) is true\n" | L_KWERDAS_LITERAL    | 46 
+)               | D_RPAREN             | 46 
+;               | D_SEMICOLON          | 46 
+}               | D_RBRACE             | 47 
+kundi           | K_KUNDI              | 48 
+{               | D_LBRACE             | 48 
+ani             | K_ANI                | 49 
+(               | D_LPAREN             | 49 
+"(5 < 3) || (2 < 1) is false\n" | L_KWERDAS_LITERAL    | 49 
+)               | D_RPAREN             | 49 
+;               | D_SEMICOLON          | 49 
+}               | D_RBRACE             | 50 
+kundiman        | K_KUNDIMAN           | 50 
+{               | D_LBRACE             | 50 
+bunga           | N_BUNGA              | 51 
+ang             | N_ANG                | 51 
+(               | D_LPAREN             | 51 
+“wala”      | UNKNOWN_CATEGORY     | 51 
+)               | D_RPAREN             | 51 
+;               | D_SEMICOLON          | 51 
+}               | D_RBRACE             | 52 
+balik           | R_BALIK              | 54 
+0               | L_BILANG_LITERAL     | 54 
+;               | D_SEMICOLON          | 54 
+tuloy           | K_TULOY              | 54 
+}               | D_RBRACE             | 55 
+i               | L_IDENTIFIER         | 56 
+=               | O_ASSIGN             | 56 
+1               | L_BILANG_LITERAL     | 56 
+;               | D_SEMICOLON          | 56 
+gawin           | K_GAWIN              | 57 
+{               | D_LBRACE             | 57 
+i               | L_IDENTIFIER         | 58 
++               | O_PLUS               | 58 
++               | O_PLUS               | 58 
+;               | D_SEMICOLON          | 58 
+}               | D_RBRACE             | 59 
+habang          | K_HABANG             | 59 
+(               | D_LPAREN             | 59 
+i               | L_IDENTIFIER         | 59 
+<               | O_LESS               | 59 
+10              | L_BILANG_LITERAL     | 59 
+)               | D_RPAREN             | 59 
+;               | D_SEMICOLON          | 59 
+bilang          | R_BILANG             | 61 
+j               | L_IDENTIFIER         | 61 
+=               | O_ASSIGN             | 61 
+0               | L_BILANG_LITERAL     | 61 
+;               | D_SEMICOLON          | 61 
+habang          | K_HABANG             | 62 
+(               | D_LPAREN             | 62 
+j               | L_IDENTIFIER         | 62 
+<               | O_LESS               | 62 
+5               | L_BILANG_LITERAL     | 62 
+)               | D_RPAREN             | 62 
+{               | D_LBRACE             | 62 
+j               | L_IDENTIFIER         | 63 
++               | O_PLUS               | 63 
++               | O_PLUS               | 63 
+;               | D_SEMICOLON          | 63 
+}               | D_RBRACE             | 64 
+bilang          | R_BILANG             | 65 
+sum             | L_IDENTIFIER         | 65 
+=               | O_ASSIGN             | 65 
+1               | L_BILANG_LITERAL     | 65 
++               | O_PLUS               | 65 
+2               | L_BILANG_LITERAL     | 65 
+;               | D_SEMICOLON          | 65 
+bilang          | R_BILANG             | 66 
+product         | L_IDENTIFIER         | 66 
+=               | O_ASSIGN             | 66 
+1               | L_BILANG_LITERAL     | 66 
+*               | O_MULTIPLY           | 66 
+2               | L_BILANG_LITERAL     | 66 
+;               | D_SEMICOLON          | 66 
+bilang          | R_BILANG             | 67 
+quotient        | L_IDENTIFIER         | 67 
+=               | O_ASSIGN             | 67 
+6               | L_BILANG_LITERAL     | 67 
+/               | O_DIVIDE             | 67 
+3               | L_BILANG_LITERAL     | 67 
+;               | D_SEMICOLON          | 67 
+bilang          | R_BILANG             | 68 
+exponent        | L_IDENTIFIER         | 68 
+=               | O_ASSIGN             | 68 
+2               | L_BILANG_LITERAL     | 68 
+^               | O_POW                | 68 
+3               | L_BILANG_LITERAL     | 68 
+;               | D_SEMICOLON          | 68 
+bilang          | R_BILANG             | 69 
+modulo          | L_IDENTIFIER         | 69 
+=               | O_ASSIGN             | 69 
+10              | L_BILANG_LITERAL     | 69 
+%               | O_MODULO             | 69 
+4               | L_BILANG_LITERAL     | 69 
+;               | D_SEMICOLON          | 69 
+bilang          | R_BILANG             | 70 
+difference      | L_IDENTIFIER         | 70 
+=               | O_ASSIGN             | 70 
+10              | L_BILANG_LITERAL     | 70 
+-               | O_MINUS              | 70 
+6               | L_BILANG_LITERAL     | 70 
+:               | UNKNOWN_CATEGORY     | 70 
+protektado      | K_PROTEKTADO         | 73 
+bilang          | R_BILANG             | 73 
+el              | L_IDENTIFIER         | 73 
+=               | O_ASSIGN             | 73 
+13              | L_BILANG_LITERAL     | 73 
+;               | D_SEMICOLON          | 73 
+pribado         | K_PRIBADO            | 74 
+bilang          | R_BILANG             | 74 
+ma              | L_IDENTIFIER         | 74 
+=               | O_ASSIGN             | 74 
+14              | L_BILANG_LITERAL     | 74 
+;               | D_SEMICOLON          | 74 
+statik          | K_STATIK             | 76 
+bilang          | R_BILANG             | 76 
+ito             | L_IDENTIFIER         | 76 
+=               | O_ASSIGN             | 76 
+123             | L_BILANG_LITERAL     | 76 
+;               | D_SEMICOLON          | 76 
+//Continue // return (tuloy/balik) | C_SINGLE_LINE        | 78 
+//Public class  | C_SINGLE_LINE        | 79 
+publiko         | K_PUBLIKO            | 81 
+pangkat         | K_PANGKAT            | 81 
+Sample          | L_IDENTIFIER         | 81 
+{               | D_LBRACE             | 81 
+pribado         | K_PRIBADO            | 82 
+:               | UNKNOWN_CATEGORY     | 82 
+statik          | K_STATIK             | 84 
+wala            | R_WALA               | 84 
+showNumbers     | L_IDENTIFIER         | 84 
+(               | D_LPAREN             | 84 
+)               | D_RPAREN             | 84 
+{               | D_LBRACE             | 84 
+para            | K_PARA               | 85 
+(               | D_LPAREN             | 85 
+bilang          | R_BILANG             | 85 
+i               | L_IDENTIFIER         | 85 
+=               | O_ASSIGN             | 85 
+1               | L_BILANG_LITERAL     | 85 
+;               | D_SEMICOLON          | 85 
+i               | L_IDENTIFIER         | 85 
+<=              | O_LESS_EQ            | 85 
+5               | L_BILANG_LITERAL     | 85 
+;               | D_SEMICOLON          | 85 
+i               | L_IDENTIFIER         | 85 
++               | O_PLUS               | 85 
++               | O_PLUS               | 85 
+)               | D_RPAREN             | 85 
+{               | D_LBRACE             | 85 
+kung            | K_KUNG               | 86 
+(               | D_LPAREN             | 86 
+i               | L_IDENTIFIER         | 86 
+==              | O_EQUAL              | 86 
+3               | L_BILANG_LITERAL     | 86 
+)               | D_RPAREN             | 86 
+Tuloy           | L_IDENTIFIER         | 86 
+;               | D_SEMICOLON          | 86 
+kung            | K_KUNG               | 87 
+(               | D_LPAREN             | 87 
+i               | L_IDENTIFIER         | 87 
+==              | O_EQUAL              | 87 
+5               | L_BILANG_LITERAL     | 87 
+)               | D_RPAREN             | 87 
+Balik           | L_IDENTIFIER         | 87 
+;               | D_SEMICOLON          | 87 
+ani             | K_ANI                | 88 
+(               | D_LPAREN             | 88 
+i               | L_IDENTIFIER         | 88 
+)               | D_RPAREN             | 88 
+;               | D_SEMICOLON          | 88 
+}               | D_RBRACE             | 89 
+}               | D_RBRACE             | 90 
+publiko         | K_PUBLIKO            | 92 
+statik          | K_STATIK             | 92 
+wala            | R_WALA               | 92 
+ugat            | R_UGAT               | 92 
+(               | D_LPAREN             | 92 
+kwerdas         | R_KWERDAS            | 92 
+[               | D_LBRACKET           | 92 
+]               | D_RBRACKET           | 92 
+args            | L_IDENTIFIER         | 92 
+)               | D_RPAREN             | 92 
+showNumbers     | L_IDENTIFIER         | 93 
+(               | D_LPAREN             | 93 
+)               | D_RPAREN             | 93 
+;               | D_SEMICOLON          | 93 
+}               | D_RBRACE             | 94 
+}               | D_RBRACE             | 95 
+kiss            | R_C_KISS             | 97 
+;               | D_SEMICOLON          | 97 
+pi              | R_C_PI               | 98 
+;               | D_SEMICOLON          | 98 
+constSampleString | L_IDENTIFIER         | 99 
+;               | D_SEMICOLON          | 99 
+E_num           | R_C_E                | 100 
+;               | D_SEMICOLON          | 100 
+(               | D_LPAREN             | 104 
+boolean         | L_IDENTIFIER         | 104 
+values          | L_IDENTIFIER         | 104 
+:               | UNKNOWN_CATEGORY     | 104 
+tama            | R_TAMA               | 104 
+/               | O_DIVIDE             | 104 
+mali            | R_MALI               | 104 
+)               | D_RPAREN             | 104 
+bulyan          | R_BULYAN             | 106 
+ng              | N_NG                 | 106 
+x               | L_IDENTIFIER         | 106 
+=               | O_ASSIGN             | 106 
+tama            | R_TAMA               | 106 
+;               | D_SEMICOLON          | 106 
+bulyan          | R_BULYAN             | 107 
+ng              | N_NG                 | 107 
+y               | L_IDENTIFIER         | 107 
+=               | O_ASSIGN             | 107 
+mali            | R_MALI               | 107 
+;               | D_SEMICOLON          | 107 
+bulyan          | R_BULYAN             | 108 
+ng              | N_NG                 | 108 
+z               | L_IDENTIFIER         | 108 
+=               | O_ASSIGN             | 108 
+tama            | R_TAMA               | 108 
+;               | D_SEMICOLON          | 108 
+Kung            | L_IDENTIFIER         | 110 
+(               | D_LPAREN             | 110 
+(               | D_LPAREN             | 110 
+x               | L_IDENTIFIER         | 110 
+&&              | O_AND                | 110 
+z               | L_IDENTIFIER         | 110 
+)               | D_RPAREN             | 110 
+||              | O_OR                 | 110 
+y               | L_IDENTIFIER         | 110 
+)               | D_RPAREN             | 110 
+{               | D_LBRACE             | 110 
+ani             | K_ANI                | 111 
+(               | D_LPAREN             | 111 
+"Expression result: tama" | L_KWERDAS_LITERAL    | 111 
+)               | D_RPAREN             | 111 
+;               | D_SEMICOLON          | 111 
+}               | D_RBRACE             | 112 
+kundi           | K_KUNDI              | 112 
+{               | D_LBRACE             | 112 
+ani             | K_ANI                | 113 
+(               | D_LPAREN             | 113 
+"Expression result: mali" | L_KWERDAS_LITERAL    | 113 
+)               | D_RPAREN             | 113 
+;               | D_SEMICOLON          | 113 
+}               | D_RBRACE             | 114 
+wakas           | N_WAKAS              | 114 
+Itakda          | L_IDENTIFIER         | 116 
+Variable        | L_IDENTIFIER         | 116 
+=               | O_ASSIGN             | 116 
+5               | L_BILANG_LITERAL     | 116 
+;               | D_SEMICOLON          | 116 
+para            | K_PARA               | 118 
+(               | D_LPAREN             | 118 
+bilang          | R_BILANG             | 118 
+i               | L_IDENTIFIER         | 118 
+=               | O_ASSIGN             | 118 
+1               | L_BILANG_LITERAL     | 118 
+;               | D_SEMICOLON          | 118 
+1               | L_BILANG_LITERAL     | 118 
+<=              | O_LESS_EQ            | 118 
+5               | L_BILANG_LITERAL     | 118 
+;               | D_SEMICOLON          | 118 
+i               | L_IDENTIFIER         | 118 
++               | O_PLUS               | 118 
++               | O_PLUS               | 118 
+)               | D_RPAREN             | 118 
+{               | D_LBRACE             | 118 
+kung            | K_KUNG               | 119 
+(               | D_LPAREN             | 119 
+i               | L_IDENTIFIER         | 119 
+==              | O_EQUAL              | 119 
+3               | L_BILANG_LITERAL     | 119 
+)               | D_RPAREN             | 119 
+tibag           | K_TIBAG              | 119 
+;               | D_SEMICOLON          | 119 
+Ani             | L_IDENTIFIER         | 120 
+(               | D_LPAREN             | 120 
+i               | L_IDENTIFIER         | 120 
+)               | D_RPAREN             | 120 
+;               | D_SEMICOLON          | 120 
+}               | D_RBRACE             | 121 
++               | O_PLUS               | 124 
+-               | O_MINUS              | 124 
+*               | O_MULTIPLY           | 124 
+/               | O_DIVIDE             | 124 
+^               | O_POW                | 124 
+%               | O_MODULO             | 124 
+=               | O_ASSIGN             | 124 
+==              | O_EQUAL              | 124 
+!=              | O_NOT_EQUAL          | 124 
+<               | O_LESS               | 124 
+>               | O_GREATER            | 124 
+<=              | O_LESS_EQ            | 124 
+>=              | O_GREATER_EQ         | 124 
+&&              | O_AND                | 124 
+||              | O_OR                 | 124 
+!               | O_NOT                | 124 
+&               | UNKNOWN_CATEGORY     | 124 
+|               | UNKNOWN_CATEGORY     | 124 
+;               | D_SEMICOLON          | 127 
+{               | D_LBRACE             | 127 
+}               | D_RBRACE             | 127 
+(               | D_LPAREN             | 127 
+)               | D_RPAREN             | 127 
+[               | D_LBRACKET           | 127 
+]               | D_RBRACKET           | 127 
+,               | D_COMMA              | 127 
+.               | D_DOT                | 127 
+errors          | L_IDENTIFIER         | 129 
+:               | UNKNOWN_CATEGORY     | 129 
 /* oops
 
 _anInvalidIdentifier 
@@ -504,4 +506,4 @@ _anInvalidIdentifier
 ''   
 &    
 |   
-@ $ ? | UNKNOWN_CATEGORY
+@ $ ? | UNKNOWN_CATEGORY     | 130 
